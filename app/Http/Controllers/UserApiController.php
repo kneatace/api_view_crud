@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\UserService;
-use Illuminate\Http\Request;
+use App\Http\Requests\ValidationRequest;
 
 class UserApiController extends Controller
 {
@@ -16,7 +16,7 @@ class UserApiController extends Controller
     {
         return response()->json($this->service->getAll());
     }
-    public function store(Request $request)
+    public function store(ValidationRequest $request)
     {
         $user = $this->service->create($request->all());
         return response()->json(['message'=>'User created successfully', 
