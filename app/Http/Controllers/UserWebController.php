@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ValidationRequest;
 use App\Services\UserService;
 
 class UserWebController extends Controller
@@ -34,7 +34,7 @@ class UserWebController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ValidationRequest $request)
     {
         $users = $this->service->create($request->all());
         return redirect()->route('users.index');

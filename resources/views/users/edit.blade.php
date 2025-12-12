@@ -1,4 +1,4 @@
-<h2> Edit user credentiasl</h2><br>
+<h2> Edit user credentials</h2><br>
 <form action="{{ route('users.update', $users->id) }}" method="POST">
     @csrf 
     @method('PUT')
