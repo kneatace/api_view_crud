@@ -29,7 +29,7 @@ class UserApiController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(ValidationRequest $request, $id)
     {
         $user = $this->service->update($id, $request->all());
         return response()->json(['message'=>'User updated successfully', 'user'=>$user]);
