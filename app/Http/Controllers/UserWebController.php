@@ -28,7 +28,7 @@ class UserWebController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -36,7 +36,8 @@ class UserWebController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = $this->service->create($request->all());
+        return redirect()->route('users.index');
     }
 
     /**
@@ -44,7 +45,7 @@ class UserWebController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
