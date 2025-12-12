@@ -45,7 +45,8 @@ class UserWebController extends Controller
      */
     public function show(string $id)
     {
-        
+        return view('users.show', 
+        ['users' => $this->service->getbyId($id)]);
     }
 
     /**
@@ -53,7 +54,8 @@ class UserWebController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $users = $this->service->getbyId($id);
+        return view('users.edit', compact('users'));
     }
 
     /**
@@ -61,7 +63,8 @@ class UserWebController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $users = $this->service->update($id, $request->all());
+        return redirect()->route('users.index');
     }
 
     /**
@@ -69,6 +72,8 @@ class UserWebController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $users = $this->service->getbyId($id);
+        $users->delete();
+        return redirect()->route('users.index');
     }
 }
