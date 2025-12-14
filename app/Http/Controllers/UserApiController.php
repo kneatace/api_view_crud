@@ -6,7 +6,6 @@ use App\Services\UserService;
 use App\Http\Requests\ValidationRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Http\Resources\UserResource;
-use App\Http\Resources\UserCollection;
 
 class UserApiController extends Controller
 {
@@ -15,22 +14,25 @@ class UserApiController extends Controller
     {
         $this->service=$service;
     }
+    
     public function index()
     {
         $users = $this->service->getAll();
-        return new UserCollection($users);
+        // return new UserCollection($users);
+        return UserResource::collection($users);
     }
+    
     public function store(ValidationRequest $request)
     {
         $user = $this->service->create($request->all());
         return response()->json(['message'=>'User created successfully', 
         'user'=>$user]);
     }
+    
     public function show($id)
     {
         $user = $this->service->getbyId($id);
         return new UserResource($user);
-
     }
 
     public function update(UpdateRequest $request, $id)
