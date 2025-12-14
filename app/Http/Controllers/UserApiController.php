@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\UserService;
 use App\Http\Requests\ValidationRequest;
+use App\Http\Requests\UpdateRequest;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 
 class UserApiController extends Controller
 {
@@ -14,7 +17,8 @@ class UserApiController extends Controller
     }
     public function index()
     {
-        return response()->json($this->service->getAll());
+        $users = $this->service->getAll();
+        return new UserCollection($users);
     }
     public function store(ValidationRequest $request)
     {
@@ -24,14 +28,14 @@ class UserApiController extends Controller
     }
     public function show($id)
     {
-        return response()->json(['message'=>'User fetched successfully', 
-        'user'=>$this->service->getbyId($id)]);
+        $user = $this->service->getbyId($id);
+        return new UserResource($user);
 
     }
 
-    public function update(ValidationRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        $user = $this->service->update($id, $request->all());
+        $user = $this->service->update($id, $request->validated());
         return response()->json(['message'=>'User updated successfully', 'user'=>$user]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidationRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Services\UserService;
 
 class UserWebController extends Controller
@@ -61,9 +62,9 @@ class UserWebController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ValidationRequest $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        $users = $this->service->update($id, $request->all());
+        $users = $this->service->update($id, $request->validated());
         return redirect()->route('users.index');
     }
 

@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,20 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'=>'required|string|max:255',
+            'email'=>'required|email|unique:users,email,' . $this->route('id'),
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Name is required',
+            'name,string'=> 'Name must be a string',
+            'name.max'=> 'Name must nit exceed 255 characters',
+            'email.required'=> 'Email is required',
+            'email.email'=> 'Email must be a valid email address',
+            'email.unique'=> 'Email must be unique',
         ];
     }
 }
